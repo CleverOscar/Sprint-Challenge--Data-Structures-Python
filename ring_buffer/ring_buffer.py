@@ -1,6 +1,5 @@
 from doubly_linked_list import DoublyLinkedList
 
-
 class RingBuffer:
     def __init__(self, capacity):
         self.capacity = capacity
@@ -8,15 +7,26 @@ class RingBuffer:
         self.storage = DoublyLinkedList()
 
     def append(self, item):
-        pass
+        # self.current stores the current oldest element
+        if len(self.storage) < self.capacity:
+            self.storage.add_to_tail(item)
+            self.current = self.storage.head
+        else:
+            self.current.value = item
+            self.current = self.current.next or self.storage.head
 
     def get(self):
         # Note:  This is the only [] allowed
         list_buffer_contents = []
 
         # TODO: Your code here
+        current_node = self.storage.head
+        while current_node:
+            list_buffer_contents.append(current_node.value)
+            current_node = current_node.next
 
         return list_buffer_contents
+
 
 # ----------------Stretch Goal-------------------
 
